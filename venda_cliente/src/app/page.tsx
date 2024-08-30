@@ -24,10 +24,8 @@ export default function Home() {
     <>
     <InputPesquisa setProdutos={setProdutos} />
     <div className="mx-auto max-w-screen-xl ">
-      <h1 className="mt-5 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
-        Produtos{" "}
-      </h1>
-      <section className=" mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+    <h1 className=" p-5 mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-slate-600 from-yellow-400">Promoções</span></h1>
+      <section className=" mb-10 grid place-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {listaProdutos}
       </section>
     </div>

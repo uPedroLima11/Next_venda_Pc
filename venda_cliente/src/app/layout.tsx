@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "PC Store",
+  title: "Nexus Gaming",
   description: "Loja de Computadores PC store",
   keywords: ["PC", "Loja", "Computadores"],
 };
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className=" bg-gray-100">
+      <body className="bg-gray-100">
         <Header />
         {children}
         <Footer />

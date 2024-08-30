@@ -2,27 +2,27 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <nav className="bg-slate-600 border-gray-200 dark:bg-gray-900">
-      <div className="flex flex-wrap justify-between ml-5 items-center mx-auto p-4">
+    <nav className="bg-[#262626] sticky top-0 z-40 border-gray-200 ">
+      <div className="flex flex-wrap justify-between ml-5 items-center mx-auto pr-4">
         <Link
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src="./logo.png" className="h-16" alt="Flowbite Logo" />
-          <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">
-            PC Store
+          <img src="./logo.png" className="h-28" alt="Flowbite Logo" />
+          <span className=" text-[#F0F0F0] aself-center text-2xl font-bold whitespace-nowrap">
+            <span className="text-[#cba35c]">Nexus</span> Gaming
           </span>
         </Link>
         <div className="flex max-lg:ml-auto space-x-3">
           <Link
             href="/login"
-            className="px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
+            className="hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block"
           >
             Login
           </Link>
           <Link
             href="/login"
-            className="px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#ffffff] bg-[#B20000] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#ffffff]"
+            className="hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#ffffff] bg-[#cba35c] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#ffffff] sm:inline-block"
           >
             Registro
           </Link>
@@ -30,7 +30,7 @@ export function Header() {
           <button id="toggleOpen" className="lg:hidden">
             <svg
               className="w-7 h-7"
-              fill="#000"
+              fill="#F0F0F0"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -42,10 +42,6 @@ export function Header() {
             </svg>
           </button>
         </div>
-        {/* <div className="flex items-center space-x-6 mr-5 rtl:space-x-reverse ">
-            <span className="text-gray-500 dark:text-white hover:underline">Identifique-se</span>
-            <Link href="/login" className="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Entrar</Link>
-        </div> */}
       </div>
     </nav>
   );
