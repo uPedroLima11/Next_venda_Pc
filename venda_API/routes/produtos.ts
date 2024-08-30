@@ -19,21 +19,28 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId} =
+  const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId } =
     req.body;
 
   if (!modelo || !preco || !foto || !configuracao || !tipo || !marcaId) {
-    res
-      .status(400)
-      .json({
-        erro: "Informe modelo, preco, foto, configuracao, tipo, cor, adicional e marcaId",
-      });
+    res.status(400).json({
+      erro: "Informe modelo, preco, foto, configuracao, tipo, cor, adicional e marcaId",
+    });
     return;
   }
 
   try {
     const produto = await prisma.produto.create({
-      data: { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId },
+      data: {
+        modelo,
+        preco,
+        foto,
+        configuracao,
+        tipo,
+        cor,
+        adicional,
+        marcaId,
+      },
     });
     res.status(201).json(produto);
   } catch (error) {
@@ -56,22 +63,19 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId } =
-    req.body;
+  const { modelo, preco, foto, configuracao, tipo, marcaId } = req.body;
 
-  if (!modelo || !preco || !foto || !configuracao || !tipo || !cor || !adicional || !marcaId) {
-    res
-      .status(400)
-      .json({
-        erro: "Informe modelo, preco, foto, configuracao, tipo, cor, adicional e marcaId",
-      });
+  if (!modelo || !preco || !foto || !configuracao || !tipo || !marcaId) {
+    res.status(400).json({
+      erro: "Informe modelo, preco, foto, configuracao, tipo e marcaId",
+    });
     return;
   }
 
   try {
     const produto = await prisma.produto.update({
       where: { id: Number(id) },
-      data: { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId },
+      data: { modelo, preco, foto, configuracao, tipo, marcaId },
     });
     res.status(200).json(produto);
   } catch (error) {
@@ -105,9 +109,7 @@ router.get("/pesquisa/:termo", async (req, res) => {
           marca: true,
         },
         where: {
-          OR: [
-            { preco: termoNumero },
-          ],
+          OR: [{ preco: termoNumero }],
         },
       });
       res.status(200).json(produtos);
