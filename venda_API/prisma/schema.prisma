@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Marca {
+  id      Int       @id @default(autoincrement())
+  nome    String    @db.VarChar(30)
+  produto Produto[]
+
+  @@map("marcas")
+}
+
+model Produto {
+  id           Int      @id @default(autoincrement())
+  modelo       String   @db.VarChar(60)
+  preco        Decimal  @db.Decimal(10, 2)
+  foto         String
+  configuracao String
+  tipo         TipoProduto  @default(OUTRO)
+  cor          String?
+  adicional    String?
+  destacado    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  marca        Marca    @relation(fields: [marcaId], references: [id])
+  marcaId      Int
+
+  @@map("produtos")
+}
+
+enum TipoProduto {
+  MONITOR
+  TECLADO
+  MOUSE
+  HEADSET
+  CADEIRA
+  MESA
+  GABINETE
+  PLACA_DE_VIDEO
+  PLACA_MAE
+  PROCESSADOR
+  MEMORIA_RAM
+  HD
+  SSD
+  FONTE
+  COOLER
+  WEBCAM
+  MICROFONE
+  CAIXA_DE_SOM
+  OUTRO
+}
