@@ -90,18 +90,4 @@ router.put("/:id", async (req, res) => {
     res.status(400).json(error)
   }
 })
-
-router.get("/lista/bebes", async (req, res) => {
-  try {
-    const marcas = await prisma.marca.findMany({
-      include: {
-        produto: true
-      }
-    })
-    res.status(200).json(marcas)
-  } catch (error) {
-    res.status(400).json(error)
-  }
-})
-
 export default router

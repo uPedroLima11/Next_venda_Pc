@@ -119,4 +119,19 @@ router.get("/pesquisa/:termo", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const produto = await prisma.produto.findUnique({
+      where: { id: Number(id) },
+      include: {
+        marca: true,
+      }
+    })
+    res.status(200).json(produto)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
 export default router;

@@ -1,10 +1,15 @@
 import { ProdutoI } from "@/utils/types/produtos";
+import Link from "next/link";
 
 export function ItemProdutos({ data }: { data: ProdutoI }) {
   return (
     <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
       <a href="#">
-        <img className="p-5 rounded-[2rem]" src={data.foto} alt="product image" />
+        <img
+          className="p-5 rounded-[2rem]"
+          src={data.foto}
+          alt="product image"
+        />
       </a>
       <div className="px-5 pb-5">
         <a href="#">
@@ -66,9 +71,13 @@ export function ItemProdutos({ data }: { data: ProdutoI }) {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-gray-900 dark:text-white">
-            R${data.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+            R$
+            {Number(data.preco).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+            })}
           </span>
-          <button
+          <Link
+            href={`/detalhes/${data.id}`}
             type="button"
             className="text-white bg-[#cba35c] hover:bg-[#b38e4f] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
           >
@@ -86,10 +95,10 @@ export function ItemProdutos({ data }: { data: ProdutoI }) {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 export default function Login() {
   return (
-      <form className="max-w-sm mx-auto">
+      <form className="max-w-sm my-28 mx-auto">
         <h2 className="mt-20 mb-6 text-3xl"> Login do Cliente </h2>
         <div className="mb-5">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">
