@@ -13,7 +13,7 @@ export function ItemProdutos({ data }: { data: ProdutoI }) {
       </a>
       <div className="px-5 pb-5">
         <a href="#">
-          <h5 className="text-xl min-h-32 font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="text-xl min-h-32 font-semibold tracking-tight text-white">
             {data.modelo} {data.configuracao}
           </h5>
         </a>
@@ -70,7 +70,7 @@ export function ItemProdutos({ data }: { data: ProdutoI }) {
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-gray-900 dark:text-white">
+          <span className="text-2xl font-bold text-white">
             R$
             {Number(data.preco).toLocaleString("pt-BR", {
               minimumFractionDigits: 2,

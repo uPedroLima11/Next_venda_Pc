@@ -1,6 +1,8 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 type Inputs = {
   email: string;
@@ -10,7 +12,8 @@ type Inputs = {
 
 export default function Login() {
   const { register, handleSubmit } = useForm<Inputs>();
-  const router = useRouter(); 
+  const { toast } = useToast();
+  const router = useRouter();
 
   async function verificaLogin(data: Inputs) {
     const response = await fetch(
@@ -27,7 +30,12 @@ export default function Login() {
       const dados = await response.json();
       router.push("/");
     } else {
-      alert("Email ou senha incorretos");
+      toast({
+        variant: "destructive",
+        title: "Algo deu errado",
+        description: "Verifique suas credenciais e tente novamente",
+        action: <ToastAction altText="Repetir">Repetir</ToastAction>,
+      });
     }
   }
 

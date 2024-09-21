@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Nexus Gaming",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="bg-gray-100">
         <Header />
         {children}
+        <Toaster />
         <Footer />
       </body>
     </html>
