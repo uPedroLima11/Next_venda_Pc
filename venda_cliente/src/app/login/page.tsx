@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { useClienteStore } from "@/context/cliente";
 
 type Inputs = {
   email: string;
@@ -13,6 +14,7 @@ type Inputs = {
 export default function Login() {
   const { register, handleSubmit } = useForm<Inputs>();
   const { toast } = useToast();
+  const { logaCliente } = useClienteStore();
   const router = useRouter();
 
   async function verificaLogin(data: Inputs) {
@@ -28,6 +30,16 @@ export default function Login() {
     );
     if (response.status === 200) {
       const dados = await response.json();
+      logaCliente(dados);
+
+      if (data.continuar) {
+        localStorage.setItem("client_key", dados.id);
+      } else {
+        if (localStorage.getItem("client_key")) {
+          localStorage.removeItem("client_key");
+        }
+      }
+
       router.push("/");
     } else {
       toast({

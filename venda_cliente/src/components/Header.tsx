@@ -2,9 +2,20 @@
 import Link from "next/link";
 import { useClienteStore } from "@/context/cliente";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 
 export function Header() {
-  const { cliente } = useClienteStore();
+  const { cliente, deslogaCliente } = useClienteStore();
+  const router = useRouter();
+
+  function sairCliente() {
+    deslogaCliente();
+    if (localStorage.getItem("client_key")) {
+      localStorage.removeItem("client_key");
+    }
+    router.push("/login");
+  }
+
   return (
     <nav className="bg-[#262626] sticky top-0 z-40 border-gray-200 ">
       <div className="flex flex-wrap justify-between ml-5 items-center mx-auto pr-4">
@@ -29,12 +40,12 @@ export function Header() {
                   </Avatar>
                 </span>
               </span>
-              <Link
-                href="/login"
-                className="hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block"
+              <span
+                className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block"
+                onClick={sairCliente}
               >
                 Sair
-              </Link>
+              </span>
             </>
           ) : (
             <>

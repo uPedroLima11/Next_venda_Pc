@@ -12,11 +12,28 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useClienteStore } from "@/context/cliente";
 
 export default function Home() {
   const [produtos, setProdutos] = useState<ProdutoI[]>([]);
+  const { logaCliente } = useClienteStore();
 
   useEffect(() => {
+    async function getCliente(idCliente: string) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_API}/clientes/${idCliente}`
+      );
+      if (response.status === 200) {
+        const dados = await response.json();
+        logaCliente(dados);
+      }
+    }
+
+    if (localStorage.getItem("client_key")) {
+      const clienteSalvo = localStorage.getItem("client_key") as string;
+      getCliente(clienteSalvo);
+    }
+
     async function getDados() {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL_API}/produtos`
