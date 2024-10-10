@@ -3,17 +3,35 @@ import Link from "next/link";
 import { useClienteStore } from "@/context/cliente";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function Header() {
-  const { cliente, deslogaCliente } = useClienteStore();
+  const { cliente, logaCliente, deslogaCliente } = useClienteStore();
   const router = useRouter();
+
+  useEffect(() => {
+    async function buscaUsuarios(idUsuario: string) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_API}/clientes/${idUsuario}`
+      );
+      if (response.status === 200) {
+        const dados = await response.json();
+        logaCliente(dados);
+      }
+    }
+    if (localStorage.getItem("client_key")) {
+      const usuarioSalvo = localStorage.getItem("client_key") as string;
+      const usuarioValor = usuarioSalvo.replace(/"/g, "");
+      buscaUsuarios(usuarioValor);
+    }
+  }, []);
 
   function sairCliente() {
     deslogaCliente();
     if (localStorage.getItem("client_key")) {
       localStorage.removeItem("client_key");
     }
-    router.push("/login");
+    router.push("/");
   }
 
   return (
@@ -23,7 +41,7 @@ export function Header() {
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src="./logo.png" className="h-28" alt="Flowbite Logo" />
+          <img src="/logo.png" className="h-28" alt="Flowbite Logo" />
           <span className=" text-[#F0F0F0] aself-center text-2xl font-bold whitespace-nowrap">
             <span className="text-[#cba35c]">Nexus</span> Gaming
           </span>
@@ -40,6 +58,11 @@ export function Header() {
                   </Avatar>
                 </span>
               </span>
+              <Link href={"#"}>
+                <span className="cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block">
+                  Propostas
+                </span>
+              </Link>
               <span
                 className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block"
                 onClick={sairCliente}
@@ -56,7 +79,7 @@ export function Header() {
                 Login
               </Link>
               <Link
-                href="/login"
+                href="/registro"
                 className="hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#ffffff] bg-[#cba35c] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#ffffff] sm:inline-block"
               >
                 Registro

@@ -5,7 +5,7 @@ export function Footer() {
         <div className="lg:flex lg:items-center">
           <a href="javascript:void(0)">
             <img
-              src="./logo.png"
+              src="/logo.png"
               alt="logo"
               className="w-52"
             />
