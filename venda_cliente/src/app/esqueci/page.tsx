@@ -10,61 +10,34 @@ type Inputs = {
   continuar: boolean;
 };
 
-export default function Login() {
+export default function Esqueceu() {
   const { register, handleSubmit } = useForm<Inputs>();
   const { toast } = useToast();
   const router = useRouter();
 
-  async function verificaCadastro(data: Inputs) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL_API}/clientes`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          nome: data.nome,
-          email: data.email,
-          senha: data.senha,
-        }),
-      },
-    );
-    console.log(response);
-    if (response.status === 201) {
-      const dados = await response.json();
-      console.log(dados);
-      router.push('/login');
-      toast({
-        variant: 'default',
-        title: 'Cadastro efetuado com sucesso',
-        description: `Bem-vindo a Verbalize!`,
-      });
-    } else {
-      toast({
-        variant: 'destructive',
-        title: 'Algo deu errado',
-        description: 'Verifique as credenciais e tente novamente',
-      });
-    }
-  }
-
   async function enviaRecuperacao(data: Inputs) {
     const token = Math.floor(100000 + Math.random() * 900000);
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/clientes/recuperacao`,
-        {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            email: data.email,
-            token,
-            }),
+      `${process.env.NEXT_PUBLIC_URL_API}/clientes/esqueceu/${data.email}`,
+      {
+        method: "patch",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type, Accept, Z-Key",
+          "Access-Control-Allow-Methods":
+            "GET, HEAD, POST, PUT, DELETE, OPTIONS",
         },
-        );
-
+        body: JSON.stringify({
+          recuperacao: token.toString(),
+        }),
+      }
+    );
+    if (response.status === 200) {
+      const dados = await response.json();
+      console.log(dados);
+    }
   }
 
   return (
@@ -94,8 +67,7 @@ export default function Login() {
                   {...register("email")}
                 />
               </div>
-              <div className="flex items-center justify-between">
-              </div>
+              <div className="flex items-center justify-between"></div>
               <button
                 type="submit"
                 className="w-full text-white bg-yellow-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-0"
