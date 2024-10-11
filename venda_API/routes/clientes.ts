@@ -130,7 +130,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/esqueceu/:email", async (req, res) => {
+router.put("/esqueceu/:email", async (req, res) => {
   const { email } = req.params;
   const { recuperacao } = req.body;
 
