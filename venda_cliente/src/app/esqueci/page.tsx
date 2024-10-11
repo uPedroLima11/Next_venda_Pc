@@ -27,7 +27,7 @@ export default function Esqueceu() {
           "Access-Control-Allow-Headers":
             "Origin, X-Requested-With, Content-Type, Accept, Z-Key",
           "Access-Control-Allow-Methods":
-            "GET, HEAD, POST, PUT, DELETE, OPTIONS",
+            "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH",
         },
         body: JSON.stringify({
           recuperacao: token.toString(),

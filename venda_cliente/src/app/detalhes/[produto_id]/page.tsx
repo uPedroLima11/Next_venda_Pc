@@ -4,11 +4,17 @@ import { useClienteStore } from "@/context/cliente"
 import { ProdutoI } from "@/utils/types/produtos"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+
+type Inputs = {
+  descricao: string
+}
 
 export default function Detalhes() {
   const params = useParams()
   const { cliente } = useClienteStore();
   const [produto, setProduto] = useState<ProdutoI>()
+  const { register, handleSubmit, reset } = useForm<Inputs>()
 
   useEffect(() => {
     async function getDados() {
@@ -42,8 +48,10 @@ export default function Detalhes() {
           </> :
           <>
           <div>
-            <h5 className="text-white font-bold">Email: {cliente.email}</h5>
-            <Textarea className="bg-white mt-5" />
+            <form>
+              <h5 className="text-white font-bold">Email: {cliente.email}</h5>
+              <Textarea className="bg-white mt-5" {...register("descricao")} />
+            </form>
             </div> 
             </>
           }
