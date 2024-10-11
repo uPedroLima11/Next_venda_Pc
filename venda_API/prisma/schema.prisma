@@ -22,30 +22,48 @@ model Marca {
 }
 
 model Produto {
-  id           Int         @id @default(autoincrement())
-  modelo       String      @db.VarChar(60)
-  preco        Decimal     @db.Decimal(10, 2)
+  id           Int          @id @default(autoincrement())
+  modelo       String       @db.VarChar(60)
+  preco        Decimal      @db.Decimal(10, 2)
   foto         String
   configuracao String
-  tipo         TipoProduto @default(OUTRO)
+  tipo         TipoProduto  @default(OUTRO)
   cor          String?
   adicional    String?
-  destacado    Boolean     @default(true)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  marca        Marca       @relation(fields: [marcaId], references: [id])
+  destacado    Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  marca        Marca        @relation(fields: [marcaId], references: [id])
   marcaId      Int
+  avaliacao    Avaliacoes[]
 
   @@map("produtos")
 }
 
-model Cliente {
-  id        String   @id @default(uuid()) @db.VarChar(36)
-  nome      String   @db.VarChar(60)
-  email     String   @db.VarChar(60) @unique
-  senha     String   @db.VarChar(60)
+model Avaliacoes {
+  id        Int      @id @default(autoincrement())
+  nota      Int
+  descricao String   @db.Text
+  resposta  String?  @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  produto   Produto  @relation(fields: [produtoId], references: [id])
+  produtoId Int
+  cliente   Cliente  @relation(fields: [clienteid], references: [id])
+  clienteid String
+
+  @@map("avaliacoes")
+}
+
+model Cliente {
+  id        String       @id @default(uuid()) @db.VarChar(36)
+  nome      String       @db.VarChar(60)
+  email     String       @unique @db.VarChar(60)
+  senha     String       @db.VarChar(60)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  recuperacao String?    @db.VarChar(6)
+  avaliacao Avaliacoes[]
 
   @@map("clientes")
 }

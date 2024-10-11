@@ -17,23 +17,16 @@ router.get("/", async (req, res) => {
 function validaSenha(senha: string) {
   const mensa: string[] = [];
 
-  // .length: retorna o tamanho da string (da senha)
   if (senha.length < 8) {
     mensa.push("Erro... senha deve possuir, no mínimo, 8 caracteres");
   }
 
-  // contadores
   let pequenas = 0;
   let grandes = 0;
   let numeros = 0;
   let simbolos = 0;
 
-  // senha = "abc123"
-  // letra = "a"
-
-  // percorre as letras da variável senha
   for (const letra of senha) {
-    // expressão regular
     if (/[a-z]/.test(letra)) {
       pequenas++;
     } else if (/[A-Z]/.test(letra)) {
@@ -68,13 +61,9 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  // 12 é o número de voltas (repetições) que o algoritmo faz
-  // para gerar o salt (sal/tempero)
   const salt = bcrypt.genSaltSync(12);
-  // gera o hash da senha acrescida do salt
   const hash = bcrypt.hashSync(senha, salt);
 
-  // para o campo senha, atribui o hash gerado
   try {
     const cliente = await prisma.cliente.create({
       data: { nome, email, senha: hash },
@@ -87,13 +76,9 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
-
-  // em termos de segurança, o recomendado é exibir uma mensagem padrão
-  // a fim de evitar de dar "dicas" sobre o processo de login para hackers
   const mensaPadrao = "Login ou senha incorretos";
 
   if (!email || !senha) {
-    // res.status(400).json({ erro: "Informe e-mail e senha do usuário" })
     res.status(400).json({ erro: mensaPadrao });
     return;
   }
@@ -104,12 +89,10 @@ router.post("/login", async (req, res) => {
     });
 
     if (cliente == null) {
-      // res.status(400).json({ erro: "E-mail inválido" })
       res.status(400).json({ erro: mensaPadrao });
       return;
     }
 
-    // se o e-mail existe, faz-se a comparação dos hashs
     if (bcrypt.compareSync(senha, cliente.senha)) {
       res.status(200).json({
         id: cliente.id,
@@ -123,5 +106,58 @@ router.post("/login", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const cliente = await prisma.cliente.findUnique({
+      where: { id },
+    });
+
+    if (cliente == null) {
+      res.status(400).json({ erro: "Cliente não encontrado" });
+      return;
+    } else {
+      res.status(200).json({
+        id: cliente.id,
+        nome: cliente.nome,
+        email: cliente.email,
+      });
+    }
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.patch("/esqueceu/:email", async (req, res) => {
+  const { email } = req.params;
+  const { recuperacao } = req.body;
+
+  if (!recuperacao) {
+    res.status(400).json({ erro: "Informe a nova senha" });
+    return;
+  }
+
+  try {
+    const cliente = await prisma.cliente.findUnique({
+      where: { email },
+    });
+
+    if (cliente == null) {
+      res.status(400).json({ erro: "Cliente não encontrado" });
+      return;
+    }
+
+    await prisma.cliente.update({
+      where: { email },
+      data: { recuperacao: recuperacao },
+    });
+
+    res.status(200).json({ sucesso: "Token Ativado" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+})
 
 export default router;
