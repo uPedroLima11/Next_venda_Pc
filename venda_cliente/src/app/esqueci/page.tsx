@@ -20,14 +20,9 @@ export default function Esqueceu() {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL_API}/clientes/esqueceu/${data.email}`,
       {
-        method: "patch",
+        method: "put",
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers":
-            "Origin, X-Requested-With, Content-Type, Accept, Z-Key",
-          "Access-Control-Allow-Methods":
-            "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           recuperacao: token.toString(),
@@ -36,7 +31,6 @@ export default function Esqueceu() {
     );
     if (response.status === 200) {
       const dados = await response.json();
-      console.log(dados);
     }
   }
 
