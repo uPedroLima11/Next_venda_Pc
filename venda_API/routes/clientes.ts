@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -130,6 +131,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+async function emailRecuperacaoSenha(email: string, token: string) {
+  const transporter = nodemailer.createTransport({
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: process.env.BREVO_USER,
+      pass: process.env.BREVO_SENHA,
+    },
+  });
+
+  try {
+    const info = await transporter.sendMail({
+      from: 'pedrohenriquedoamaralsiqueira@gmail.com', // sender address
+      to: email, // list of receivers
+      subject: "Olá", // Subject line
+      text: "Recuperação de Senha", // plain text body
+      html: `<h2>Sistema de Recuperação de Senha Nexus gaming?</h2>
+            <p>Seu código de recuperação é : ${token}</p>
+            <h3>Atenção: Não compartilhe este código com ninguém</h3>`, // html body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 router.put("/esqueceu/:email", async (req, res) => {
   const { email } = req.params;
   const { recuperacao } = req.body;
@@ -153,6 +182,8 @@ router.put("/esqueceu/:email", async (req, res) => {
       where: { email },
       data: { recuperacao: recuperacao },
     });
+
+    emailRecuperacaoSenha(email, recuperacao);
 
     res.status(200).json({ sucesso: "Token Ativado" });
   } catch (error) {
