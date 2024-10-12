@@ -58,7 +58,7 @@ export function Header() {
                   </Avatar>
                 </span>
               </span>
-              <Link href="/propostas" className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block">
+              <Link href="/avaliacoes" className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block">
                 Minhas Avaliações
               </Link>
               <span

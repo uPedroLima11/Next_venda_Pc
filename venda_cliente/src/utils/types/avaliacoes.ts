@@ -1,6 +1,6 @@
 import { ProdutoI } from "./produtos";
 
-export interface Avaliacoes {
+export interface AvaliacoesI {
     id: number
     clienteId: string
     produtoId: number
