@@ -90,4 +90,19 @@ router.put("/:id", async (req, res) => {
     res.status(400).json(error)
   }
 })
+
+router.get("/:clienteid", async (req, res) => {
+  const { clienteid } = req.params
+  try {
+    const avaliacoes = await prisma.avaliacoes.findMany({
+      where: { clienteid },
+      include: {
+        produto: true
+      }
+    })
+    res.status(200).json(avaliacoes)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
 export default router
