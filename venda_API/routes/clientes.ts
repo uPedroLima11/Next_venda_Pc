@@ -146,11 +146,14 @@ async function emailRecuperacaoSenha(email: string, token: string) {
     const info = await transporter.sendMail({
       from: 'pedrohenriquedoamaralsiqueira@gmail.com', // sender address
       to: email, // list of receivers
-      subject: "Olá", // Subject line
+      subject: "Formulário", // Subject line
       text: "Recuperação de Senha", // plain text body
       html: `<h2>Sistema de Recuperação de Senha Nexus gaming?</h2>
             <p>Seu código de recuperação é : ${token}</p>
-            <h3>Atenção: Não compartilhe este código com ninguém</h3>`, // html body
+            <h3>Atenção: Não compartilhe este código com ninguém</h3>
+            </br>
+            <a href="http://localhost:3000/alterar">Página de Recuperação de senha</a>
+            `, // html body
     });
 
     console.log("Message sent: %s", info.messageId);
@@ -162,11 +165,6 @@ async function emailRecuperacaoSenha(email: string, token: string) {
 router.put("/esqueceu/:email", async (req, res) => {
   const { email } = req.params;
   const { recuperacao } = req.body;
-
-  if (!recuperacao) {
-    res.status(400).json({ erro: "Informe a nova senha" });
-    return;
-  }
 
   try {
     const cliente = await prisma.cliente.findUnique({
@@ -186,6 +184,48 @@ router.put("/esqueceu/:email", async (req, res) => {
     emailRecuperacaoSenha(email, recuperacao);
 
     res.status(200).json({ sucesso: "Token Ativado" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+})
+
+router.put("/alterar", async (req, res) => {
+  const { email, senha, recuperacao } = req.body;
+
+  if (!email || !senha || !recuperacao) {
+    res.status(400).json({ erro: "Informe email, senha e token" });
+    return;
+  }
+
+  const erros = validaSenha(senha);
+  if (erros.length > 0) {
+    res.status(400).json({ erro: erros.join("; ") });
+    return;
+  }
+
+  const salt = bcrypt.genSaltSync(12);
+  const hash = bcrypt.hashSync(senha, salt);
+
+  try {
+    const cliente = await prisma.cliente.findUnique({
+      where: { email },
+    });
+
+    if (cliente == null) {
+      res.status(400).json({ erro: "Cliente não encontrado" });
+      return;
+    }
+
+    if (cliente.recuperacao == recuperacao) {
+      await prisma.cliente.update({
+        where: { email },
+        data: { senha: hash, recuperacao: null },
+      });
+
+      res.status(200).json({ sucesso: "Senha Alterada" });
+    } else {
+      res.status(400).json({ erro: "Token inválido" });
+    }
   } catch (error) {
     res.status(400).json(error);
   }
