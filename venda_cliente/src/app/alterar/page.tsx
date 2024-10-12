@@ -4,10 +4,9 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 type Inputs = {
-  nome: string;
   email: string;
+  token: string;
   senha: string;
-  continuar: boolean;
 };
 
 export default function Esqueceu() {
@@ -15,25 +14,27 @@ export default function Esqueceu() {
   const { toast } = useToast();
   const router = useRouter();
 
-  async function enviaRecuperacao(data: Inputs) {
-    const token = Math.floor(100000 + Math.random() * 900000);
+  async function alteracaoSenha(data: Inputs) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL_API}/clientes/esqueceu/${data.email}`,
+      `${process.env.NEXT_PUBLIC_URL_API}/clientes/alterar`,
       {
         method: "put",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          recuperacao: token.toString(),
+          email: data.email,
+          recuperacao: data.token,
+          senha: data.senha,
         }),
       }
     );
     if (response.status === 200) {
+      router.push("/login");
       toast({
         variant: "default",
-        title: "Token Enviado",
-        description: "Verifique seu email",
+        title: "Senha Alterada",
+        description: "Verifique suas credenciais e tente novamente",
       });
     }else{
       toast({
@@ -50,18 +51,18 @@ export default function Esqueceu() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-16 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Recuperação de Senha
+              Alteração de Senha
             </h1>
             <form
               className="space-y-4 md:space-y-6"
-              onSubmit={handleSubmit(enviaRecuperacao)}
-            >
+              onSubmit={handleSubmit(alteracaoSenha)}
+              >
               <div>
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Seu email
+                  Email do Usuário
                 </label>
                 <input
                   type="email"
@@ -69,6 +70,36 @@ export default function Esqueceu() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   {...register("email")}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Token de Recuperação
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                  {...register("token")}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                  {...register("senha")}
                 />
               </div>
               <div className="flex items-center justify-between"></div>
