@@ -82,6 +82,19 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.get("/avaliacoes", async (req, res) => {
+  try {
+    const avaliacoes = await prisma.produto.findMany({
+      include: {
+        avaliacao: true,
+      },
+    });
+    res.status(200).json(avaliacoes);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 router.get("/pesquisa/:termo", async (req, res) => {
   const { termo } = req.params;
 
