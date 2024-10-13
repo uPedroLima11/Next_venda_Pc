@@ -1,3 +1,4 @@
+import { AvaliacoesI } from "./avaliacoes";
 import { MarcaI } from "./marcas";
 
 export interface ProdutoI{
@@ -14,4 +15,5 @@ export interface ProdutoI{
     updatedAt: Date;
     marca: MarcaI;
     marcaId: number;
+    avaliacao: AvaliacoesI;
 }

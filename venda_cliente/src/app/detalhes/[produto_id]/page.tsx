@@ -45,8 +45,8 @@ export default function Detalhes() {
     if (response.status == 201) {
       toast({
         variant: "default",
-        title: "Proposta enviada",
-        description: "Sua proposta foi enviada com sucesso",
+        title: "Avalição enviada",
+        description: "Sua Avalição foi enviada com sucesso",
       });
       reset()
     } else {
@@ -62,9 +62,9 @@ export default function Detalhes() {
   return (
     <section className="my-10">
       <h1 className="ms-48 mt-10 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
-        Deseja confirmar a comprar do seguinte Produto? :{" "}
+        Deseja avaliar o Produto :{" "}
         <span className="underline underline-offset-3 decoration-8 decoration-orange-400 dark:decoration-orange-600">
-          {produto?.marca.nome} {produto?.modelo}
+          {produto?.marca.nome} {produto?.modelo}?
         </span>
       </h1>
 
