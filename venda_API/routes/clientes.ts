@@ -148,7 +148,7 @@ async function emailRecuperacaoSenha(email: string, token: string) {
       to: email, // list of receivers
       subject: "Formulário", // Subject line
       text: "Recuperação de Senha", // plain text body
-      html: `<h2>Sistema de Recuperação de Senha Nexus gaming?</h2>
+      html: `<h2>Sistema de Recuperação de Senha Nexus Gaming</h2>
             <p>Seu código de recuperação é : ${token}</p>
             <h3>Atenção: Não compartilhe este código com ninguém</h3>
             </br>
