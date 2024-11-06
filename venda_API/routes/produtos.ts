@@ -18,8 +18,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId } =
-    req.body;
+  const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId } = req.body;
 
   if (!modelo || !preco || !foto || !configuracao || !tipo || !marcaId) {
     res.status(400).json({
@@ -49,7 +48,6 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
     const produto = await prisma.produto.delete({
       where: { id: Number(id) },
@@ -132,18 +130,18 @@ router.get("/pesquisa/:termo", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
   try {
     const produto = await prisma.produto.findUnique({
       where: { id: Number(id) },
       include: {
         marca: true,
-      }
-    })
-    res.status(200).json(produto)
+      },
+    });
+    res.status(200).json(produto);
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json(error);
   }
-})
+});
 
 export default router;
