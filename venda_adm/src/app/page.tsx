@@ -42,7 +42,7 @@ export default function Home() {
           </div>
           <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
             <a href="#">
-              <img className="p-5 rounded-[2rem]" src={"/placamae.png"} alt="product image" />
+              <img className="p-5 rounded-[2rem]" src={"/amd.jpg"} alt="product image" />
             </a>
           </div>
           <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
