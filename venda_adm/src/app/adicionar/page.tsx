@@ -68,14 +68,14 @@ export default function Adicionar() {
       console.log(dados);
       toast({
         variant: "default",
-        title: "Cadastro efetuado com sucesso",
-        description: `Bem-vindo a Verbalize!`,
+        title: "Cadastro do produto efetuado com sucesso",
+        description: `O produto foi cadastrado com sucesso`,
       });
     } else {
       toast({
         variant: "destructive",
         title: "Algo deu errado",
-        description: "Verifique as credenciais e tente novamente",
+        description: "Verifique se os dados estão corretos",
       });
     }
   }
