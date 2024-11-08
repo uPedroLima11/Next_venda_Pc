@@ -18,10 +18,10 @@ export default function Banner() {
         <h1 className="text-center font-semibold text-lg pb-5 text-white">área exclusiva para administradores do sistema</h1>
         <br />
         <div className="flex justify-evenly gap-5 lg:justify-center">
-          <Link href={"/adicionar"} type="button" className="bg-[#B38000] ease-in-out shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] rounded-full px-12 py-4 transition delay-150 duration-300 text-white font-bold focus:ring-4 focus:outline-none text-base text-center ">
+          <Link href={"/principal/adicionar"} type="button" className="bg-[#B38000] ease-in-out shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] rounded-full px-12 py-4 transition delay-150 duration-300 text-white font-bold focus:ring-4 focus:outline-none text-base text-center ">
             Adicionar Produtos
           </Link>
-          <Link href={"/remover"} type="button" className="bg-[#515151] ease-in-out shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] rounded-full px-12 py-4 transition delay-150 duration-300 text-white font-bold hover:bg-red-600 focus:ring-4 focus:outline-none text-base text-center ">
+          <Link href={"/principal/remover"} type="button" className="bg-[#515151] ease-in-out shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] rounded-full px-12 py-4 transition delay-150 duration-300 text-white font-bold hover:bg-red-600 focus:ring-4 focus:outline-none text-base text-center ">
             Remover Produto
           </Link>
         </div>
