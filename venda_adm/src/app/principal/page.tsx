@@ -3,7 +3,10 @@ import { ProdutoI } from "@/utils/types/produtos";
 import { useEffect, useState } from "react";
 import { useClienteStore } from "@/context/cliente";
 import Banner from "@/components/banner";
-import Image from "next/image";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DollarSign, Package } from "lucide-react";
+import ChartOverview from "@/components/chart";
+import Sales from "@/components/sales";
 
 interface geralDadosI {
   clientes: number
@@ -38,33 +41,67 @@ export default function Home() {
     getDados();
   }, []);
 
-  // produtos.forEach((produto) => {
-
   return (
-    <>
+    <div  className="sm:ml-14 p-4">
       <Banner />
-      <section className="grid grid-cols-4 p-20">
-        <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
-          <a href="#">
-            <img className="p-5 rounded-[2rem]" src={"/placamae.png"} alt="product image" />
-          </a>
-        </div>
-        <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
-          <a href="#">
-            <img className="p-5 rounded-[2rem]" src={"/amd.jpg"} alt="product image" />
-          </a>
-        </div>
-        <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
-          <a href="#">
-            <img className="p-5 rounded-[2rem]" src={"/placamae.png"} alt="product image" />
-          </a>
-        </div>
-        <div className="w-72 max-w-sm bg-[#202020] border-gray-200 rounded-3xl shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
-          <a href="#">
-            <img className="p-5 rounded-[2rem]" src={"/placamae.png"} alt="product image" />
-          </a>
-        </div>
+      <section className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center ">
+              <CardTitle className="text-lg sm:text-xl text-gray-800 select-none">
+                Qtd. de Produtos
+              </CardTitle>
+              <Package className="ml-auto w-4 h-4 "/>
+            </div>
+            <CardContent >
+              <h1 className="mt-3 text-base sm:text-lg font-bold">{produtos.length}</h1>
+            </CardContent>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center ">
+              <CardTitle className="text-lg sm:text-xl text-gray-800 select-none">
+                Qtd. de Produtos
+              </CardTitle>
+              <Package className="ml-auto w-4 h-4 "/>
+            </div>
+            <CardContent >
+              <h1 className="mt-3 text-base sm:text-lg font-bold">{produtos.length}</h1>
+            </CardContent>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center ">
+              <CardTitle className="text-lg sm:text-xl text-gray-800 select-none">
+                Qtd. de Produtos
+              </CardTitle>
+              <Package className="ml-auto w-4 h-4 "/>
+            </div>
+            <CardContent >
+              <h1 className="mt-3 text-base sm:text-lg font-bold">{produtos.length}</h1>
+            </CardContent>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center ">
+              <CardTitle className="text-lg sm:text-xl text-gray-800 select-none">
+                Qtd. de Produtos
+              </CardTitle>
+              <Package className="ml-auto w-4 h-4 "/>
+            </div>
+            <CardContent >
+              <h1 className="mt-3 text-base sm:text-lg font-bold">{produtos.length}</h1>
+            </CardContent>
+          </CardHeader>
+        </Card>
       </section>
-    </>
+      <section className="mt-4 flex flex-col md:flex-row gap-4">
+        <ChartOverview />
+        <Sales />
+      </section>
+    </div>
   );
 }

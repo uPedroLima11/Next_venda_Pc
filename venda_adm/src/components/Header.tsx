@@ -10,6 +10,7 @@ export function Header() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(cliente);
     async function buscaUsuarios(idUsuario: string) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/clientes/${idUsuario}`);
       if (response.status === 200) {
@@ -41,20 +42,22 @@ export function Header() {
             <span className="text-[#cba35c]">Nexus</span> Gaming
           </span>
         </Link>
-        <div className="flex items-center max-lg:ml-auto space-x-3">
-          <span className="flex items-center font-semibold justify-center text-[#cba35c]">
-            Olá, {cliente.nome}{" "}
-            <span className="mx-3">
-              <Avatar>
-                <AvatarImage src="https://media.istockphoto.com/id/885234758/pt/vetorial/male-avatar-profile-picture-silhouette-light-shadow.jpg?s=612x612&w=0&k=20&c=fwyGS425x9Zyv1tLVsTTX6nwNWi4BiZJeP27qtbU8K0=" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+        {cliente && Object.keys(cliente).length > 0 && (
+          <div className="flex items-center max-lg:ml-auto space-x-3">
+            <span className="flex items-center font-semibold justify-center text-[#cba35c]">
+              Olá, {cliente.nome}{" "}
+              <span className="mx-3">
+                <Avatar>
+                  <AvatarImage src="https://media.istockphoto.com/id/885234758/pt/vetorial/male-avatar-profile-picture-silhouette-light-shadow.jpg?s=612x612&w=0&k=20&c=fwyGS425x9Zyv1tLVsTTX6nwNWi4BiZJeP27qtbU8K0=" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </span>
             </span>
-          </span>
-          <span className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block" onClick={sairCliente}>
-            Sair
-          </span>
-        </div>
+            <span className=" cursor-pointer hidden px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] sm:inline-block" onClick={sairCliente}>
+              Sair
+            </span>
+          </div>
+        )}
       </div>
     </nav>
   );

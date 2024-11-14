@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { Sidebar } from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Nexus Gaming",
@@ -18,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className="bg-[#e0dfdf]">
-        <Header />
+        {/* <Header /> */}
         {children}
-        <Toaster />
-        <Footer />
+        {/* <Toaster />
+        <Footer /> */}
       </body>
     </html>
   );
