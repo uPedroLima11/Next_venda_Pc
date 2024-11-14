@@ -29,7 +29,7 @@ export default function ChartOverview() {
     <Card className="w-full md:w-1/2 md:max-w-[600px]">
       <CardHeader>
         <div className="flex items-center justify-center">
-          <CardTitle className="text-lg sm:text-xl text-gray-800">Overview Propostas</CardTitle>
+          <CardTitle className="text-lg sm:text-xl text-gray-800">Overview Avaliações</CardTitle>
           <DollarSign className="ml-auto h-4 w-4" />
         </div>
       </CardHeader>

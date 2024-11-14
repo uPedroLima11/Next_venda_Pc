@@ -7,7 +7,7 @@ export default function Sales() {
     <Card className="flex-1">
       <CardHeader>
         <div className="flex items-center justify-center">
-          <CardTitle className="text-lg sm:text-xl text-gray-800">Ultimas Propostas</CardTitle>
+          <CardTitle className="text-lg sm:text-xl text-gray-800">Ultimas Avaliações</CardTitle>
           <CircleDollarSign className="ml-auto h-4 w-4" />
         </div>
       </CardHeader>
