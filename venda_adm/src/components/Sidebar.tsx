@@ -46,7 +46,7 @@ export function Sidebar() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href={"#"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+                <Link href={"/principal/listarProdutos"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
                   <Package className="w-5 h-5" />
                   <span className="sr-only">Listar Produtos</span>
                 </Link>
