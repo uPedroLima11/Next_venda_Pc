@@ -14,13 +14,24 @@ interface ProdutoI {
     } | null;
 }
 
+const tiposDeProduto = [
+    "MONITOR", "TECLADO", "MOUSE", "HEADSET", "CADEIRA", "MESA",
+    "GABINETE", "PLACA_DE_VIDEO", "PLACA_MAE", "PROCESSADOR", "MEMORIA_RAM",
+    "HD", "SSD", "FONTE", "COOLER", "WEBCAM", "MICROFONE", "CAIXA_DE_SOM"
+];
+
 export default function ProdutosList() {
     const [produtos, setProdutos] = useState<ProdutoI[]>([]);
+    const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
+    const [mostrarFiltro, setMostrarFiltro] = useState(false);
 
     useEffect(() => {
         async function fetchProdutos() {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`);
+                const url = tipoSelecionado
+                    ? `${process.env.NEXT_PUBLIC_URL_API}/produtos?tipo=${tipoSelecionado}`
+                    : `${process.env.NEXT_PUBLIC_URL_API}/produtos`;
+                const response = await fetch(url);
                 const data = await response.json();
                 setProdutos(data);
             } catch (error) {
@@ -28,13 +39,47 @@ export default function ProdutosList() {
             }
         }
         fetchProdutos();
-    }, []);
+    }, [tipoSelecionado]);
+
+    const handleFiltroClick = (tipo: string | null) => {
+        setTipoSelecionado(tipo);
+        setMostrarFiltro(false);  
+    };
 
     return (
         <section className="max-w-7xl mx-auto my-10">
-            <h1 className="mb-6 mt-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-                Lista de <span className="underline underline-offset-3 decoration-8 decoration-orange-400 dark:decoration-orange-600">Produtos</span>
-            </h1>
+            <div className="flex justify-between items-center mb-6 mt-4">
+                <h1 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+                    Lista de <span className="underline underline-offset-3 decoration-8 decoration-orange-400 dark:decoration-orange-600">Produtos</span>
+                </h1>
+                <div className="relative">
+                    <button
+                        onClick={() => setMostrarFiltro(!mostrarFiltro)}
+                        className="bg-orange-400 text-white py-2 px-4 rounded-md"
+                    >
+                        Filtrar
+                    </button>
+                    {mostrarFiltro && (
+                        <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-2 w-48">
+                            <button
+                                onClick={() => handleFiltroClick(null)}
+                                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                            >
+                                Todos
+                            </button>
+                            {tiposDeProduto.map((tipo) => (
+                                <button
+                                    key={tipo}
+                                    onClick={() => handleFiltroClick(tipo)}
+                                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                >
+                                    {tipo}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {produtos.map((produto) => (
@@ -47,7 +92,6 @@ export default function ProdutosList() {
                             alt={produto.modelo}
                             className="w-full h-40 object-cover rounded-lg"
                         />
-
                         <div className="mt-4 text-center">
                             <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                                 {produto.modelo}

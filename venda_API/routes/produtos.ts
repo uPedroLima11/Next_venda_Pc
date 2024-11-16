@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, TipoProduto } from "@prisma/client";
 import { Router } from "express";
 
 const prisma = new PrismaClient();
@@ -6,7 +6,14 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
+    const { tipo } = req.query;
+
+    if (tipo && !Object.values(TipoProduto).includes(tipo as TipoProduto)) {
+      return res.status(400).json({ error: "Tipo inválido" });
+    }
+
     const produtos = await prisma.produto.findMany({
+      where: tipo ? { tipo: tipo as TipoProduto } : {},
       include: { marca: true },
     });
 
@@ -20,6 +27,7 @@ router.get("/", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
 
 router.post("/", async (req, res) => {
   const { modelo, preco, foto, configuracao, tipo, cor, adicional, marcaId } = req.body;
