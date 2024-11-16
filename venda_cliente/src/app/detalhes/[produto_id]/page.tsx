@@ -90,7 +90,7 @@ export default function Detalhes() {
               </form>
             </>
             :
-            <h3 className="text-xl font-bold tracking-tight text-orange-700">Faça login para fazer proposta para este veículo</h3>
+            <h3 className="text-xl font-bold tracking-tight text-orange-700">Faça login para fazer avaliação sobre este Produto</h3>
           }
         </div>
       </div>

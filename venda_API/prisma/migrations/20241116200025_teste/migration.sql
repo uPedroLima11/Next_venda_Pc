@@ -44,6 +44,7 @@ CREATE TABLE `clientes` (
     `nome` VARCHAR(60) NOT NULL,
     `email` VARCHAR(60) NOT NULL,
     `senha` VARCHAR(60) NOT NULL,
+    `foto` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `recuperacao` VARCHAR(6) NULL,

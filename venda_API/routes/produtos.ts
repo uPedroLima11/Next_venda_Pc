@@ -7,11 +7,15 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const produtos = await prisma.produto.findMany({
-      include: {
-        marca: true,
-      },
+      include: { marca: true },
     });
-    res.status(200).json(produtos);
+
+    const produtosCorrigidos = produtos.map((produto) => ({
+      ...produto,
+      preco: Number(produto.preco),
+    }));
+
+    res.status(200).json(produtosCorrigidos);
   } catch (error) {
     res.status(400).json(error);
   }
