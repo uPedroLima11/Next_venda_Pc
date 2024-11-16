@@ -41,14 +41,6 @@ export default function Adicionar() {
       default:
         marcaId = 0;
     }
-
-    console.log(data.modelo, typeof data.modelo);
-    console.log(data.preco, typeof data.preco);
-    console.log(data.foto, typeof data.foto);
-    console.log(data.config, typeof data.config);
-    console.log(data.tipo, typeof data.tipo);
-    console.log(marcaId, typeof marcaId);
-
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`, {
       method: "POST",
       headers: {
@@ -63,6 +55,7 @@ export default function Adicionar() {
         marcaId: marcaId as number,
       }),
     });
+    console.log(response.status);
     if (response.status === 201) {
       const dados = await response.json();
       console.log(dados);
