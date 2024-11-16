@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
 
-// const prisma = new PrismaClient()
 const prisma = new PrismaClient({
   log: [
     {
@@ -33,12 +32,22 @@ const router = Router()
 
 router.get("/", async (req, res) => {
   try {
-    const avaliacoes = await prisma.avaliacoes.findMany()
-    res.status(200).json(avaliacoes)
+    const avaliacoes = await prisma.avaliacoes.findMany({
+      take: 3,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        produto: true,
+        cliente: true,
+      },
+    });
+    res.status(200).json(avaliacoes);
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json(error);
   }
-})
+});
+
 
 router.post("/", async (req, res) => {
   const { nota, descricao, produtoId, clienteid } = req.body
@@ -92,18 +101,20 @@ router.put("/:id", async (req, res) => {
 })
 
 router.get("/:clienteid", async (req, res) => {
-  const { clienteid } = req.params
+  const { clienteid } = req.params;
   try {
     const avaliacoes = await prisma.avaliacoes.findMany({
       where: { clienteid },
       include: {
-        produto: true
-      }
-    })
-    res.status(200).json(avaliacoes)
+        produto: true,
+        cliente: true, 
+      },
+    });
+    res.status(200).json(avaliacoes);
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json(error);
   }
-})
+});
+
 
 export default router
