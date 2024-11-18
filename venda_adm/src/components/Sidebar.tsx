@@ -53,6 +53,33 @@ export function Sidebar() {
               </TooltipTrigger>
               <TooltipContent side="right">Listar Produtos</TooltipContent>
             </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href={"/principal/adicionarMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+                  <ArchiveRestore className="w-5 h-5" />
+                  <span className="sr-only">Adicionar Marcas</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Adicionar Marcas</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href={"/principal/removerMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+                  <ArchiveX className="w-5 h-5" />
+                  <span className="sr-only">Remover Marcas</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Remover Marcas</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href={"/principal/listarMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+                  <Package className="w-5 h-5" />
+                  <span className="sr-only">Listar Marcas</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Listar Marcas</TooltipContent>
+            </Tooltip>
           </TooltipProvider>
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 py-5">

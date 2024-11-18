@@ -2,6 +2,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
 
 type Inputs = {
   modelo: string;
@@ -9,56 +10,51 @@ type Inputs = {
   foto: string;
   config: string;
   tipo: string;
-  marca: string;
+  marcaId: number;
+};
+type Marca = {
+  id: number;
+  nome: string;
 };
 
 export default function Adicionar() {
   const { register, handleSubmit } = useForm<Inputs>();
   const { toast } = useToast();
   const router = useRouter();
-  let marcaId: number;
+
+  const [marcas, setMarcas] = useState<Marca[]>([]);
+
+  useEffect(() => {
+    async function fetchMarcas() {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/marcas`);
+        const data = await response.json();
+        setMarcas(data);
+      } catch (error) {
+        console.error("Erro ao buscar marcas:", error);
+      }
+    }
+    fetchMarcas();
+  }, []);
 
   async function adicionarProduto(data: Inputs) {
-    switch (data.marca) {
-      case "Superframe":
-        marcaId = 1;
-        break;
-      case "Biostar":
-        marcaId = 2;
-        break;
-      case "Redragon":
-        marcaId = 3;
-        break;
-      case "Fifine":
-        marcaId = 4;
-        break;
-      case "AMD":
-        marcaId = 5;
-        break;
-      case "Intel":
-        marcaId = 6;
-        break;
-      default:
-        marcaId = 0;
-    }
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        modelo: data.modelo as string,
-        preco: data.preco as number,
-        foto: data.foto as string,
-        configuracao: data.config as string,
-        tipo: data.tipo as string,
-        marcaId: marcaId as number,
+        modelo: data.modelo,
+        preco: data.preco,
+        foto: data.foto,
+        configuracao: data.config,
+        tipo: data.tipo,
+        marcaId: data.marcaId,
       }),
     });
-    console.log(response.status);
+
     if (response.status === 201) {
       const dados = await response.json();
-      console.log(dados);
       toast({
         variant: "default",
         title: "Cadastro do produto efetuado com sucesso",
@@ -131,16 +127,26 @@ export default function Adicionar() {
                 </select>
               </div>
               <div className="mb-5">
-                <label htmlFor="marca" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="marcaId"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Marca
                 </label>
-                <select id="marca" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" {...register("marca")}>
-                  <option>Superframe</option>
-                  <option>Biostar</option>
-                  <option>Redragon</option>
-                  <option>Fifine</option>
-                  <option>AMD</option>
-                  <option>Intel</option>
+                <select
+                  id="marcaId"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  {...register("marcaId", { valueAsNumber: true })} 
+                  required
+                >
+                  <option value="" disabled>
+                    Selecione uma marca
+                  </option>
+                  {marcas.map((marca) => (
+                    <option key={marca.id} value={marca.id}>
+                      {marca.nome}
+                    </option>
+                  ))}
                 </select>
               </div>
               <button type="submit" className="w-full text-white bg-yellow-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
