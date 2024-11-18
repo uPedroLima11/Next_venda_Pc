@@ -52,7 +52,6 @@ export default function MarcasList() {
       {marcas.length === 0 && (
         <div className="text-center text-gray-500 dark:text-gray-400 mt-10">
           <p>Nenhuma marca encontrada.</p>
-          <br />
         </div>
       )}
     </section>
