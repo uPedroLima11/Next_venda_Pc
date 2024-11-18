@@ -1,7 +1,7 @@
 "use client"
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import Link from "next/link";
-import { ArchiveRestore, ArchiveX, LogOut, Package, PanelBottom, PlusSquare, ShoppingBag, Users } from "lucide-react";
+import { ArchiveRestore, ArchiveX, BetweenHorizontalStart, BookmarkCheck, LogOut, Package, PanelBottom, PlusSquare, ShoppingBag, Users } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import { useClienteStore } from "@/context/cliente";
@@ -56,7 +56,7 @@ export function Sidebar() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href={"/principal/adicionarMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-                  <ArchiveRestore className="w-5 h-5" />
+                  <BetweenHorizontalStart className="w-5 h-5" />
                   <span className="sr-only">Adicionar Marcas</span>
                 </Link>
               </TooltipTrigger>
@@ -65,7 +65,7 @@ export function Sidebar() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href={"/principal/removerMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-                  <ArchiveX className="w-5 h-5" />
+                  <BetweenHorizontalStart className="w-5 h-5" />
                   <span className="sr-only">Remover Marcas</span>
                 </Link>
               </TooltipTrigger>
@@ -74,7 +74,7 @@ export function Sidebar() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href={"/principal/listarMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-                  <Package className="w-5 h-5" />
+                  <BookmarkCheck className="w-5 h-5" />
                   <span className="sr-only">Listar Marcas</span>
                 </Link>
               </TooltipTrigger>
@@ -123,6 +123,18 @@ export function Sidebar() {
                 <Link href="#" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
                   <Users className="h-5 w-5" />
                   Listar Produtos
+                </Link>
+                <Link href={"/principal/adicionarMarcas"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
+                  <ArchiveRestore className="h-5 w-5" />
+                  Adicionar Marca
+                </Link>
+                <Link href={"/principal/removerMarcas"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
+                  <ArchiveX className="h-5 w-5" />
+                  Remover Marca
+                </Link>
+                <Link href={"/principal/listarMarcas"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
+                  <Users className="h-5 w-5" />
+                  Listar Marcas
                 </Link>
                 <span onClick={sairCliente} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
                   <LogOut className="h-5 w-5" />
