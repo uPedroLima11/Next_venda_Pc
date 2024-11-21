@@ -1,5 +1,6 @@
 "use client";
 
+import BannerCategory from "@/components/bannerCategory";
 import { useEffect, useState } from "react";
 
 interface ProdutoI {
@@ -42,6 +43,7 @@ export default function ProdutosList() {
 
   return (
     <section className="max-w-7xl mx-auto my-10">
+      <BannerCategory />
       <div className="flex justify-between items-center mb-6 mt-4">
         <h1 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
           Lista de <span className="underline underline-offset-3 decoration-8 decoration-orange-400 dark:decoration-orange-600">Produtos</span>

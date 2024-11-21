@@ -36,7 +36,7 @@ export default function Login() {
 
       Cookies.set("admin_logado_id", dados.id);
       Cookies.set("admin_logado_nome", dados.nome);
-      // Cookies.set("admin_logado_token", dados.token)
+      Cookies.set("admin_logado_token", dados.token)
 
       router.push("/principal");
     } else {
