@@ -13,7 +13,6 @@ export default function Remover() {
   const router = useRouter();
 
   async function removerProduto(data: Inputs) {
-    console.log(data.idProduto);
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos/${data.idProduto as number}`, {
       method: "DELETE",
       headers: {
@@ -22,7 +21,6 @@ export default function Remover() {
     });
     if (response.status === 200) {
       const dados = await response.json();
-      console.log(dados);
       toast({
         variant: "default",
         title: "Produto removido com sucesso",

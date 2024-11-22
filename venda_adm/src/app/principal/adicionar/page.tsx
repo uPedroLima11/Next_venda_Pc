@@ -38,6 +38,7 @@ export default function Adicionar() {
       }
     }
     fetchMarcas();
+    
   }, []);
 
   async function adicionarProduto(data: Inputs) {
@@ -45,6 +46,7 @@ export default function Adicionar() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("admin_logado_token") as string
       },
       body: JSON.stringify({
         modelo: data.modelo,
@@ -53,10 +55,10 @@ export default function Adicionar() {
         configuracao: data.config,
         tipo: data.tipo,
         marcaId: data.marcaId,
+        adminId: Number(Cookies.get("admin_logado_id")),
       }),
     });
 
-    console.log(response);
     if (response.status === 201) {
       router.push("/principal/listarProdutos");
       toast({

@@ -22,7 +22,6 @@ export default function AdicionarMarca() {
 
         if (response.status === 201) {
             const dados = await response.json();
-            console.log(dados);
             toast({
                 variant: "default",
                 title: "Marca criada com sucesso",

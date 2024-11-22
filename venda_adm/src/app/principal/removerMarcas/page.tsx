@@ -13,7 +13,6 @@ export default function RemoverMarca() {
   const { toast } = useToast();
 
   async function removerMarca(data: Inputs) {
-    console.log(data.idMarca);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL_API}/marcas/${data.idMarca}`,
       {
@@ -26,7 +25,6 @@ export default function RemoverMarca() {
 
     if (response.status === 200) {
       const dados = await response.json();
-      console.log(dados);
       toast({
         variant: "default",
         title: "Marca removida com sucesso",

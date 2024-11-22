@@ -10,7 +10,6 @@ export function Header() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(cliente);
     async function buscaUsuarios(idUsuario: string) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/clientes/${idUsuario}`);
       if (response.status === 200) {

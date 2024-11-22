@@ -23,7 +23,7 @@ export default function Login() {
   const [visivel, setVisivel] = useState(false);
 
   async function verificaLogin(data: Inputs) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/clientes/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/admins/login`, {
       headers: {
         "Content-Type": "application/json",
       },
