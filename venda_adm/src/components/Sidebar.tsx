@@ -1,7 +1,7 @@
 "use client"
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import Link from "next/link";
-import { ArchiveRestore, ArchiveX, BetweenHorizontalStart, BookmarkCheck, LogOut, Package, PanelBottom, PlusSquare, ShoppingBag, Users } from "lucide-react";
+import { ArchiveRestore, ArchiveX, BetweenHorizontalStart, BookmarkCheck, LogOut, MessagesSquare, Package, PanelBottom, PlusSquare, ShoppingBag, Users } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import { useClienteStore } from "@/context/cliente";
@@ -37,15 +37,6 @@ export function Sidebar() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href={"/principal/remover"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-                  <ArchiveX className="w-5 h-5" />
-                  <span className="sr-only">Remover Produto</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Remover Produto</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
                 <Link href={"/principal/listarProdutos"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
                   <Package className="w-5 h-5" />
                   <span className="sr-only">Listar Produtos</span>
@@ -64,21 +55,21 @@ export function Sidebar() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href={"/principal/removerMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-                  <BetweenHorizontalStart className="w-5 h-5" />
-                  <span className="sr-only">Remover Marcas</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Remover Marcas</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
                 <Link href={"/principal/listarMarcas"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
                   <BookmarkCheck className="w-5 h-5" />
                   <span className="sr-only">Listar Marcas</span>
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Listar Marcas</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href={"/principal/listarAvaliacoes"} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+                  <MessagesSquare className="w-5 h-5" />
+                  <span className="sr-only">Listar avaliacoes</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Listar avaliacoes</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
@@ -116,10 +107,6 @@ export function Sidebar() {
                   <ArchiveRestore className="h-5 w-5" />
                   Adicionar Produto
                 </Link>
-                <Link href="/principal/remover" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
-                  <ArchiveX className="h-5 w-5" />
-                  Remover Produto
-                </Link>
                 <Link href="#" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
                   <Users className="h-5 w-5" />
                   Listar Produtos
@@ -128,13 +115,13 @@ export function Sidebar() {
                   <ArchiveRestore className="h-5 w-5" />
                   Adicionar Marca
                 </Link>
-                <Link href={"/principal/removerMarcas"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
-                  <ArchiveX className="h-5 w-5" />
-                  Remover Marca
-                </Link>
                 <Link href={"/principal/listarMarcas"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
                   <Users className="h-5 w-5" />
                   Listar Marcas
+                </Link>
+                <Link href={"/principal/listarAvaliacoes"} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" prefetch={false}>
+                  <MessagesSquare className="h-5 w-5" />
+                  Listar Avaliações
                 </Link>
                 <span onClick={sairCliente} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
                   <LogOut className="h-5 w-5" />

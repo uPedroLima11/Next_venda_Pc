@@ -24,9 +24,29 @@ export default function MarcasList() {
     fetchMarcas();
   }, []);
 
+  async function removerMarca(id: number) {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/marcas/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        setMarcas((prevMarcas) => prevMarcas.filter((marca) => marca.id !== id));
+        console.log(`Marca com ID ${id} removida com sucesso.`);
+      } else {
+        console.error("Erro ao remover a marca.");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição de remoção:", error);
+    }
+  }
+
   return (
     <section className="max-w-7xl mx-auto my-10">
-      <BannerCategory />
+      <BannerCategory/>
       <div className="flex justify-between items-center mb-6 mt-4">
         <h1 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
           Lista de <span className="underline underline-offset-3 decoration-8 decoration-orange-400 dark:decoration-orange-600">Marcas</span>
@@ -46,6 +66,12 @@ export default function MarcasList() {
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 <b>ID:</b> {marca.id}
               </p>
+              <button
+                onClick={() => removerMarca(marca.id)}
+                className="mt-4 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+              >
+                Remover
+              </button>
             </div>
           </div>
         ))}
